@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  pnpm:
+    container_name: pnpm-container
+    build:
+      context: dockerfiles
+      dockerfile: pnpm.dockerfile
+    volumes:
+      - ./:/src 
+
+  db:
+    container_name: pg-container
+    build: db/.docker
+    restart: always
+    environment:
+      - POSTGRES_DB=api-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
