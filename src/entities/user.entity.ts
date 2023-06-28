@@ -17,7 +17,6 @@ export class UserEntity extends BaseEntity {
     @Column()
     password: string;
 
-
     @OneToMany(() => TaskEntity, (task: TaskEntity) => task.user) tasks: TaskEntity[];
 
     @Column({ type: "timestamp", default: new Date() })
