@@ -9,7 +9,7 @@ RUN SHELL=bash pnpm setup \
 
 RUN pnpm add -g @nestjs/cli
 
-EXPOSE 3333
+EXPOSE 3000
 
 WORKDIR /src
 
