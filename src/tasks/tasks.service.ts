@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TaskEntity } from 'src/entities/task.entity';
 import { Repository } from 'typeorm';
-import { CreateTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -34,5 +34,24 @@ export class TasksService {
     } catch (err) {
       throw new Error(`Error creating ${err} user ${err.message}`);
     }
+  }
+
+  async update(updateTaskDto: UpdateTaskDto, id: number) {
+    const task = await this.taskRepository.findOne({
+      where: {
+        user: {
+          id: updateTaskDto.user.id,
+        },
+        id,
+      },
+    });
+
+    if (!task) {
+      throw new HttpException('you are not the owner', HttpStatus.UNAUTHORIZED);
+    }
+    return this.taskRepository.save({
+      ...task,
+      ...updateTaskDto,
+    });
   }
 }

@@ -17,3 +17,5 @@ export class CreateTaskDto {
   })
   user: UserEntity;
 }
+
+export class UpdateTaskDto extends CreateTaskDto {}

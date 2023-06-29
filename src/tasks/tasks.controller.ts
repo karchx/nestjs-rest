@@ -9,9 +9,11 @@ import {
   UseGuards,
   UsePipes,
   ValidationPipe,
+  Put,
+  Param,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { CreateTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { ExtendedRequest } from 'src/interfaces/app.interface';
 
@@ -37,5 +39,21 @@ export class TasksController {
       user: req.user,
     };
     return this.tasksService.create(payloadTask);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Put(':id')
+  @UseGuards(AuthGuard)
+  @UsePipes(ValidationPipe)
+  update(
+    @Param('id') id: number,
+    @Req() req: ExtendedRequest,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
+    const payloadTask: UpdateTaskDto = {
+      ...updateTaskDto,
+      user: req.user,
+    };
+    return this.tasksService.update(payloadTask, id);
   }
 }
