@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TaskEntity } from 'src/entities/task.entity';
 import { Repository } from 'typeorm';
@@ -10,6 +10,22 @@ export class TasksService {
     @InjectRepository(TaskEntity)
     private taskRepository: Repository<TaskEntity>,
   ) {}
+
+  async find(userId: number) {
+    const userTask = await this.taskRepository.find({
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+    });
+
+    if (userTask.length > 0) {
+      return userTask;
+    }
+
+    throw new HttpException('You do not have task', HttpStatus.NOT_FOUND);
+  }
 
   async create(createTaskDto: CreateTaskDto) {
     try {

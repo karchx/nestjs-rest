@@ -29,19 +29,16 @@ export class UsersService {
     email: string,
     password: string,
   ): Promise<UserEntity | undefined> {
-    try {
-      const user = await this.userRepository.findOne({
-        where: { email },
-      });
-      const isMatch = await bcrypt.compare(password, user.password);
+    const user = await this.userRepository.findOne({
+      where: { email },
+    });
+    const isMatch = await bcrypt.compare(password, user.password);
 
-      if (user && isMatch) {
-        return user;
-      } else {
-        throw new Error(`User not found`);
-      }
-    } catch (err) {
-      throw new Error(`Error finding ${err} user ${err.message}`);
+    if (user && isMatch) {
+      return user;
+    } else {
+      throw new Error(`User not found`);
     }
+   
   }
 }

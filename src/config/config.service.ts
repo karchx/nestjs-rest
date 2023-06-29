@@ -49,6 +49,7 @@ export class ConfigService {
 
       entities: ConfigService.entities,
       ssl: this.isProduction(),
+      logging: true
     };
   }
 }

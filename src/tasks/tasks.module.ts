@@ -8,7 +8,7 @@ import { AuthModule } from 'src/auth/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([TaskEntity]),
-    //forwardRef(() => AuthModule)
+    forwardRef(() => AuthModule)
   ],
   controllers: [TasksController],
   providers: [TasksService],
