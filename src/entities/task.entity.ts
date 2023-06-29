@@ -22,9 +22,6 @@ export class TaskEntity extends BaseEntity {
   @Column()
   description: string;
 
-  @Column()
-  email: string;
-
   @Column({
     type: 'enum',
     enum: TaskStatus,
