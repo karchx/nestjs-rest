@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 
@@ -19,7 +19,8 @@ export class UsersService {
       user.name = createUserDto.name;
       user.email = createUserDto.email;
       user.password = hashPassword;
-      return this.userRepository.save(user);
+      await this.userRepository.save(user);
+      return user;
     } catch (err) {
       throw new Error(`Error creating ${err} user ${err.message}`);
     }

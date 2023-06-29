@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TaskEntity } from 'src/entities/task.entity';
+import { TaskEntity } from '../entities/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class TasksService {

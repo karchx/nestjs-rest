@@ -16,7 +16,7 @@ import {
 import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
 import { AuthGuard } from '../auth/guard/auth.guard';
-import { ExtendedRequest } from 'src/interfaces/app.interface';
+import { ExtendedRequest } from '../interfaces/app.interface';
 
 @Controller('tasks')
 export class TasksController {

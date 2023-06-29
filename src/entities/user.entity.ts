@@ -29,4 +29,11 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: 'timestamp', default: new Date() })
   created_at: string;
+
+  constructor(name?: string, email?: string, password?: string) {
+    super();
+    this.name = name;
+    this.email = email;
+    this.password = password;
+  }
 }

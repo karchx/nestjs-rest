@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
-import { TaskStatus } from 'src/entities/task.entity';
-import { UserEntity } from 'src/entities/user.entity';
+import { TaskStatus } from '../../entities/task.entity';
+import { UserEntity } from '../../entities/user.entity';
 
 export class CreateTaskDto {
   @IsNotEmpty({
