@@ -24,7 +24,7 @@ export class AuthService {
 
       return {
         user: validUser,
-        token: this.jwtService.sign(payload),
+        token: this.jwtService.sign(payload, { secret: 'SECRET_KEY' }),
       };
     } catch (error) {
       throw new Error(`Error logging in ${error} user ${error.message}`);
