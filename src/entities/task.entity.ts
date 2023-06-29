@@ -1,33 +1,41 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne, Index } from "typeorm";
-import { UserEntity } from "./user.entity";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  ManyToOne,
+  Index,
+} from 'typeorm';
+import { UserEntity } from './user.entity';
 
 export enum TaskStatus {
-    TODO = "ToDo",
-    INPROGRESS = "InProgress",
-    DONE = "DONE"
+  TODO = 'ToDo',
+  INPROGRESS = 'InProgress',
+  DONE = 'DONE',
 }
 
-@Entity("task") 
+@Entity('task')
 export class TaskEntity extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    description: string;
+  @Column()
+  description: string;
 
-    @Column()
-    email: string;
-    
-    @Column({
-        type: "enum",
-        enum: TaskStatus,
-        default: TaskStatus.TODO
-    })
-    status: TaskStatus;
+  @Column()
+  email: string;
 
-    @Index()
-    @ManyToOne(() => UserEntity, (user: UserEntity) => user.tasks) user: UserEntity;
+  @Column({
+    type: 'enum',
+    enum: TaskStatus,
+    default: TaskStatus.TODO,
+  })
+  status: TaskStatus;
 
-    @Column({ type: "timestamp", default: new Date() })
-    created_at: string;
+  @Index()
+  @ManyToOne(() => UserEntity, (user: UserEntity) => user.tasks)
+  user: UserEntity;
+
+  @Column({ type: 'timestamp', default: new Date() })
+  created_at: string;
 }
