@@ -11,10 +11,7 @@ export class CreateTaskDto {
   @IsOptional()
   @IsEnum(TaskStatus)
   status: TaskStatus;
-
-  @IsNotEmpty({
-    message: 'user is not empty',
-  })
+ 
   user: UserEntity;
 }
 

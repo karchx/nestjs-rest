@@ -11,6 +11,7 @@ import {
   ValidationPipe,
   Put,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
@@ -55,5 +56,12 @@ export class TasksController {
       user: req.user,
     };
     return this.tasksService.update(payloadTask, id);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Delete(':id')
+  @UseGuards(AuthGuard)
+  delete(@Param('id') id: number, @Req() req: ExtendedRequest) {
+    return this.tasksService.delete(req.user, id);
   }
 }

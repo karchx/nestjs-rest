@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TaskEntity } from 'src/entities/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
+import { UserEntity } from 'src/entities/user.entity';
 
 @Injectable()
 export class TasksService {
@@ -53,5 +54,21 @@ export class TasksService {
       ...task,
       ...updateTaskDto,
     });
+  }
+
+  async delete(user: UserEntity, id: number) {
+    const task = await this.taskRepository.findOne({
+      where: {
+        user: {
+          id: user.id,
+        },
+        id,
+      },
+    });
+
+    if (!task) {
+      throw new HttpException('you are not the owner', HttpStatus.UNAUTHORIZED);
+    }
+    return await this.taskRepository.remove(task);
   }
 }
