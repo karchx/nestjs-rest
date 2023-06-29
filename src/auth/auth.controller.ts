@@ -2,24 +2,19 @@ import {
   Controller,
   Post,
   UsePipes,
-  UseGuards,
   ValidationPipe,
-  Req,
+  Body,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { AuthService } from './auth.service';
-import { LocalGuard } from './guard/local.guard';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @UsePipes(ValidationPipe)
-  @UseGuards(LocalGuard)
-  @Post('/login')
-  async login(@Req() req: Request) {
-    console.log(req);
-    return { message: 'working..' };
-    // return await this.authService.login(req.user)
+  @Post('login')
+  async login(@Body() body: LoginDto) {
+    return await this.authService.login(body);
   }
 }
